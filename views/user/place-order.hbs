@@ -1,0 +1,62 @@
+<section>
+    <div class="container mt-5">
+        <form action="" id="checkout-form">
+
+             <div class="row">
+                   <div class="col-md-6">
+                    <h2>delivery details</h2><br>
+                    <div>
+                        <label for="">Adress</label>
+                        <input class="form-control" type="text" id="address" name="address" >
+
+                        <label for="">Pincode</label>
+                        <input class="form-control" type="text" id="pincode" name="pincode">
+
+                        <label for="">Mobile</label>
+                        <input class="form-control" type="text" id="mobile" name="mobile">
+                        <input type="text" name="userId" id="" value="{{user._id}}" hidden>
+
+                    </div>
+                   </div>
+                   <div class="col-md-6">
+                    <div class="container mt-5 ml-5 checkout">
+                        <h5>
+                            total amount:{{total}}
+                        </h5>
+                        <hr>
+                        <div class="payment">
+                            <p>payment method</p>
+                            <input type="radio" name="payment-method" id="cod" value="cod" class="required">
+                            <label for="cod">Cash On Delivery</label><br>
+                            
+                            <input type="radio" name="payment-method" id="online" value="online" class="required">
+                            <label for="online">Online payment</label><br>
+                                
+                            
+                            <button>check out</button>
+                        </div>
+                    </div>
+                   </div>
+             </div>
+        </form>
+    
+    </div>
+</section>
+
+
+<script>
+    $("#checkout-form").submit((e)=>{
+        e.preventDefault()
+        $.ajax({
+            url:'/place-order',
+            method:'post',
+            data:$("#checkout-form").serialize(),
+            success:(response)=>{
+                alert(response)
+                if(response.status){
+                    location.href='/order-success'
+                }
+            }
+        })
+    })
+</script>
